@@ -1,0 +1,55 @@
+{
+    "movies": [
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//rSPw7tgCH9c6NqICZef4kZjFOQ5.jpg",
+        "movieTitle": "The Godfather",
+        "rating": "9.2"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//kXfqcdQKsToO0OUXHcrrNCHDBzO.jpg",
+        "movieTitle": "The Shawshank Redemption",
+        "rating": "9.3"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//3f92DMBTFqr3wgXpfxzrb0qv8nG.jpg",
+        "movieTitle": "Schindler's List",
+        "rating": "9"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//tvNuhRlpRozDgsX1zR9gQ2aHv1X.jpg",
+        "movieTitle": "Raging Bull",
+        "rating": "8.1"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//wOfzdzC0QZyhUIlyjeMuUYSb8Ax.jpg",
+        "movieTitle": "Casablanca",
+        "rating": "8.5"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//ruF3Lmd4A8MHbnEBE6lxPMbsHGL.jpg",
+        "movieTitle": "Citizen Kane",
+        "rating": "8.3"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//ft8WRF2xqEwwGWa59naDUybKTAx.jpg",
+        "movieTitle": "Gone with the Wind",
+        "rating": "8.2"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//nRsr98MFztBGm532hCVMGXV6qOp.jpg",
+        "movieTitle": "The Wizard of Oz",
+        "rating": "8.1"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//oje9d0EXQyQcxsqHQor4xFVGjrd.jpg",
+        "movieTitle": "One Flew Over the Cuckoo's Nest",
+        "rating": "8.7"
+      },
+      {
+        "moviePoster": "https://image.tmdb.org/t/p/original//mx2jS5Kaa5rmaldEFzKeKpDN9Q2.jpg",
+        "movieTitle": "Lawrence of Arabia",
+        "rating": "8.3"
+      }
+    ]
+  }
+  
