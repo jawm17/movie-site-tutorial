@@ -24,6 +24,7 @@
     margin-bottom: 20px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 #siteLogo {
@@ -83,6 +84,21 @@
     border-radius: 8px;
 }
 
+.sectionTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+    /* margin-top: -10px; */
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+#sectionIcon {
+    height: 20px;
+    margin-right: 10px;
+    color: var(--orange);
+}
+
 #leftTitle {
     font-size: 22px;
     margin-bottom: 20px;
@@ -129,7 +145,7 @@
     height: 400px;
     border: solid 1px rgb(26, 26, 26);
     border-radius: 12px;
-    overflow: hidden;
+    /* overflow: hidden; */
     position: relative;
 }
 
@@ -174,6 +190,16 @@
     margin-top: 20px;
     font-size: 22px;
     font-weight: bold;
+    max-width: 80%;
+}
+
+#saveBtn {
+    position: absolute;
+    height: 30px;
+    right: 5px;
+    cursor: pointer;
+    bottom: -50px;
+    color: var(--orange);
 }
 
 #movieDescription {
@@ -242,6 +268,12 @@
 @media only screen and (max-width: 800px) {
     #iFrameBorder {
         height: 300px;
+    }
+    #movieTitle {
+        margin-top: 10px;
+    }
+    #saveBtn {
+        bottom: -40px;
     }
 }
 

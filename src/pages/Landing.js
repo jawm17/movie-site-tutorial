@@ -18,6 +18,8 @@ export default function Landing() {
     const [moviePoster, setMoviePoster] = useState("");
     const [movieStarted, setMovieStarted] = useState(false);
     const [search, setSearch] = useState("");
+    const [rating, setRating] = useState("");
+    const [watchlist, setWatchlist] = useState([]);
 
     useEffect(() => {
         if (requestedMovie) {
@@ -40,7 +42,7 @@ export default function Landing() {
     function getRandomMovie() {
         const randomIndex = Math.floor(Math.random() * movieTitles.titles.length);
         const randomTitle = movieTitles.titles[randomIndex];
-        getMovie(randomTitle);
+        navigate("/" + randomTitle);
     }
 
     async function getMovie(title) {
@@ -62,7 +64,8 @@ export default function Landing() {
                 setMovieSrc(`https://vidsrc.to/embed/movie/${data.results[0].id}`);
                 setTitle(data.results[0].original_title);
                 setDescription(data.results[0].overview);
-                setMoviePoster("https://image.tmdb.org/t/p/original/" + data.results[0].backdrop_path)
+                setMoviePoster("https://image.tmdb.org/t/p/original/" + data.results[0].backdrop_path);
+                setRating(data.results[0].vote_average.toFixed(1))
             } else {
                 getRandomMovie();
             }
@@ -84,22 +87,45 @@ export default function Landing() {
         }
     }
 
+    useEffect(() => {
+        const storedWatchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+        setWatchlist(storedWatchlist.reverse());
+    }, []);
+
+    const addToWatchlist = ({ movieTitle, moviePoster, rating }) => {
+        const newMovie = { movieTitle, moviePoster, rating };
+        const updatedWatchlist = [...watchlist, newMovie];
+        setWatchlist(updatedWatchlist);
+        localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
+    };
+
+    const removeFromWatchlist = (movieTitle) => {
+        const updatedWatchlist = watchlist.filter(movie => movie.movieTitle !== movieTitle);
+        setWatchlist(updatedWatchlist);
+        localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
+    };
+
+    const isInWatchlist = (movieTitle) => {
+        return watchlist.some(movie => movie.movieTitle === movieTitle);
+    };
+
+
     return (
         <div>
             <div id="topBarOuter">
                 <div id="topBarInner">
                     <div id="leftTop">
                         <div id="siteTitleFlex">
-                        <div id="siteTitle">
-                            <img id="siteLogo" src={logo}></img>
-                            <div>
-                                New Movie Now
+                            <div id="siteTitle" onClick={() => getRandomMovie()}>
+                                <img id="siteLogo" src={logo}></img>
+                                <div>
+                                    New Movie Now
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                     <div id="rightTop">
-                    <div id="inputOuter">
+                        <div id="inputOuter">
                             <input id="searchInput" value={search} onKeyDown={handleKeyPress} onChange={(e) => setSearch(e.target.value)}></input>
                             <svg id="searchIcon" xmlns="https://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -110,7 +136,7 @@ export default function Landing() {
             </div>
             <div id="landingOuter">
                 <div id="landingInner">
-                <div id="rightSide">
+                    <div id="rightSide">
                         <div id="iFrameBorder">
                             {!movieStarted && moviePoster ?
                                 <div onClick={() => setMovieStarted(true)}>
@@ -121,23 +147,63 @@ export default function Landing() {
                                 </div>
                                 : null}
                             {movieSrc ? mobile ? <iframe id="movieFrame" src={movieSrc} allowFullScreen sandbox="allow-same-origin allow-scripts"></iframe> : <iframe id="movieFrame" src={movieSrc} allowFullScreen></iframe> : null}
+
+                            {isInWatchlist(title) ? (
+                                <svg onClick={() => removeFromWatchlist(title)} id="saveBtn" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                    <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
+                                </svg>
+
+                            ) : (
+                                <svg onClick={() => addToWatchlist({ movieTitle: title, moviePoster: moviePoster, rating: rating })} id="saveBtn" xmlns="https://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+                                </svg>
+                            )}
                         </div>
                         <div id="movieTitle">
                             {title}
                         </div>
+
                         <div id="movieDescription">
                             {description}
                         </div>
                     </div>
                     <div id="leftSide">
-                        {recommendedMovies.movies.map(movie => {
-                            return (
-                                <MovieThumbnail
-                                    key={movie.movieTitle}
-                                    movie={movie}
-                                />
-                            )
-                        })}
+                        {watchlist.length > 0 ?
+                            <div>
+                                <div className="sectionTitle">
+                                    <svg id="sectionIcon" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                        <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
+                                    </svg>
+                                    watchlist
+                                </div>
+                                {watchlist.map(movie => {
+                                    return (
+                                        <MovieThumbnail
+                                            key={movie.movieTitle}
+                                            movie={movie}
+                                        />
+                                    )
+                                })}
+                            </div>
+                            :
+                            null
+                        }
+                        <div className="sectionTitle">
+                            <svg id="sectionIcon" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 0 0-1.071-.136 9.742 9.742 0 0 0-3.539 6.176 7.547 7.547 0 0 1-1.705-1.715.75.75 0 0 0-1.152-.082A9 9 0 1 0 15.68 4.534a7.46 7.46 0 0 1-2.717-2.248ZM15.75 14.25a3.75 3.75 0 1 1-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 0 1 1.925-3.546 3.75 3.75 0 0 1 3.255 3.718Z" clip-rule="evenodd" />
+                            </svg>
+                            recommended
+                        </div>
+                        <div>
+                            {recommendedMovies.movies.map(movie => {
+                                return (
+                                    <MovieThumbnail
+                                        key={movie.movieTitle}
+                                        movie={movie}
+                                    />
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
