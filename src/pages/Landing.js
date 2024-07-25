@@ -3,9 +3,11 @@ import axios from "axios";
 import { useParams, useNavigate } from 'react-router-dom';
 import playBtn from "../assets/playIcon.png";
 import logo from "../assets/newmoviefav.png";
-import movieTitles from "../assets/movieTitles.json";
+import movieTitles from "../assets/movieTitlesEdited.json";
 import MovieThumbnail from "../components/MovieThumbnail";
 import recommendedMovies from "../assets/recommendedMovies.json";
+import newTitles from "../assets/newTitles.json";
+import topTitles from "../assets/2000sTitles.json";
 import "./landingStyle.css";
 
 export default function Landing() {
@@ -40,8 +42,9 @@ export default function Landing() {
     }, [movieSrc]);
 
     function getRandomMovie() {
-        const randomIndex = Math.floor(Math.random() * movieTitles.titles.length);
-        const randomTitle = movieTitles.titles[randomIndex];
+        const titleArray = [...movieTitles.titles, ...newTitles.titles, ...topTitles.titles];
+        const randomIndex = Math.floor(Math.random() * titleArray.length);
+        const randomTitle = titleArray[randomIndex];
         navigate("/" + randomTitle);
     }
 
