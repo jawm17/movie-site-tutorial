@@ -120,7 +120,7 @@ export default function Landing() {
                 <title>{title ? title : "New Movie Now"}</title>
                 <meta property="og:image" content={moviePoster} />
                 <meta name="twitter:image:src" content={moviePoster} />
-                {/* <link rel="icon" type="image/x-icon" href="/newmoviefav.png" /> */}
+                <meta name="twitter:image" content={moviePoster}/>
             </Helmet>
             <div id="topBarOuter">
                 <div id="topBarInner">
