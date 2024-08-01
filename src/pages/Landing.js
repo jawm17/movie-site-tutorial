@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import playBtn from "../assets/playIcon.png";
 import logo from "../assets/newmoviefav.png";
 import movieTitles from "../assets/movieTitlesEdited.json";
@@ -115,6 +116,10 @@ export default function Landing() {
 
     return (
         <div>
+            <Helmet>
+                <title>{title ? title : "New Movie Now"}</title>
+                <meta property="og:image" content={moviePoster} />
+            </Helmet>
             <div id="topBarOuter">
                 <div id="topBarInner">
                     <div id="leftTop">
