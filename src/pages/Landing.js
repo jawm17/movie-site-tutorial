@@ -64,7 +64,7 @@ export default function Landing() {
             const { data } = await axios.get(url, { params, headers });
             console.log(data);
             if (data?.results?.length > 0) {
-                setMovieSrc(`https://vidsrc.to/embed/movie/${data.results[0].id}`);
+                setMovieSrc(`https://vidsrc.xyz/embed/movie/${data.results[0].id}`);
                 setTitle(data.results[0].original_title);
                 setDescription(data.results[0].overview);
                 setMoviePoster("https://image.tmdb.org/t/p/original/" + data.results[0].backdrop_path);
