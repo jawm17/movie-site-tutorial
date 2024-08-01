@@ -119,6 +119,8 @@ export default function Landing() {
             <Helmet>
                 <title>{title ? title : "New Movie Now"}</title>
                 <meta property="og:image" content={moviePoster} />
+                <meta name="twitter:image:src" content={moviePoster} />
+                {/* <link rel="icon" type="image/x-icon" href="/newmoviefav.png" /> */}
             </Helmet>
             <div id="topBarOuter">
                 <div id="topBarInner">
