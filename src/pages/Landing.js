@@ -65,7 +65,7 @@ export default function Landing() {
             const { data } = await axios.get(url, { params, headers });
             console.log(data);
             if (data?.results?.length > 0) {
-                setMovieSrc(`https://vidsrc.xyz/embed/movie/${data.results[0].id}`);
+                setMovieSrc(`https://vsembed.ru/embed/movie/${data.results[0].id}`);
                 setTitle(data.results[0].original_title);
                 setDescription(data.results[0].overview);
                 setMoviePoster("https://image.tmdb.org/t/p/original/" + data.results[0].backdrop_path);
@@ -156,8 +156,8 @@ export default function Landing() {
                                     <img id="moviePoster" src={moviePoster}></img>
                                 </div>
                                 : null}
-                            {movieSrc ? mobile ? <iframe id="movieFrame" src={movieSrc} allowFullScreen></iframe> : <iframe id="movieFrame" src={movieSrc} allowFullScreen></iframe> : null}
-
+                            {movieSrc ? mobile ? <iframe id="movieFrame" src={movieSrc} allowFullScreen sandbox="allow-same-origin allow-scripts"></iframe> : <iframe id="movieFrame" src={movieSrc} allowFullScreen ></iframe> : null}
+                                {/* sandbox="allow-same-origin allow-scripts" */}
                             {isInWatchlist(title) ? (
                                 <svg onClick={() => removeFromWatchlist(title)} id="saveBtn" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                                     <path fill-rule="evenodd" d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z" clip-rule="evenodd" />
