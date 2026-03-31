@@ -156,7 +156,7 @@ export default function Landing() {
                                     <img id="moviePoster" src={moviePoster}></img>
                                 </div>
                                 : null}
-                            {movieSrc ? mobile ? <iframe id="movieFrame" src={movieSrc} allowFullScreen sandbox="allow-same-origin allow-scripts"></iframe> : <iframe id="movieFrame" src={movieSrc} allowFullScreen></iframe> : null}
+                            {movieSrc ? mobile ? <iframe id="movieFrame" src={movieSrc} allowFullScreen></iframe> : <iframe id="movieFrame" src={movieSrc} allowFullScreen></iframe> : null}
 
                             {isInWatchlist(title) ? (
                                 <svg onClick={() => removeFromWatchlist(title)} id="saveBtn" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
